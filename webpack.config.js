@@ -83,7 +83,25 @@ const config = {
   target: 'web',
   stats: {
     children: true
-  }, 
+  },
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000',
+        pathRewrite: { '^/api': '' },
+      },
+    },
+    devMiddleware: {
+      writeToDisk: true
+    },
+    static: path.join(__dirname, 'public'),
+    compress: true,
+    historyApiFallback: true,
+    hot: false,
+    https: false,
+    port,
+    host
+  },
   mode,
   module: {
     noParse: /^(vue|vue-router|vuex|vuex-router-sync)$/,
@@ -216,22 +234,6 @@ const config = {
       vue: '@vue/runtime-dom'
     },
     roots: [paths.src],
-  },
-  devServer: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:5000',
-        pathRewrite: { '^/api': '' },
-      },
-    },
-    devMiddleware: {
-      writeToDisk: true
-    },
-    static: path.join(__dirname, 'public'),
-    compress: true,
-    historyApiFallback: true,
-    hot: false,
-    https: false,
   },
   plugins: [
     new VueLoaderPlugin(),
