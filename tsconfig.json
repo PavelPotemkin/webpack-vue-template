@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "strict": true,
+    "jsx": "preserve",
+    "moduleResolution": "node",
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  },
+  "plugins": ["@babel/plugin-syntax-dynamic-import"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.vue",
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "files": ["./shims-vue.d.ts"]
+}

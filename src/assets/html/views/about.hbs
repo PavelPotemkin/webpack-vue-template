@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Проекты</title>
+</head>
+<body>
+{{> layouts/header }}
+
+<div class="example-1 h2">example-1</div>
+<div class="example-2 h2">example-2</div>
+
+<video width="400" height="300" controls="controls">
+  <source src="@/assets/video/cat.mp4" type='video/mp4;'>
+</video>
+
+<img src="@/assets/img/img2.png"/> 
+
+{{#with htmlWebpackPlugin.options.data }}
+  {{text}}
+{{/with}}
+
+<svg>
+  <use href="@/assets/svg/arrow-prev.svg"></use>
+</svg>
+
+<svg style="fill: #0d86ff;" fill="#0d86ff">
+  <use style="fill: #0d86ff;" fill="#0d86ff" xlink:href="@/assets/svg/alert.svg"></use>
+</svg>
+
+{{> layouts/footer }}
+
+</body>
+</html>

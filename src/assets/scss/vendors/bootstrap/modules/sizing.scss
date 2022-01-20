@@ -1,0 +1,63 @@
+/* Sizing */
+
+@if ($enable-sizing) {
+    @each $prop, $abbrev in (width: w, height: h) {
+        @each $size, $length in $sizes {
+            .#{$abbrev}-#{$size} {
+                #{$prop}: $length !important;
+            }
+        }
+    }
+
+    .w-inherit {
+        width: inherit;
+    }
+
+    .w-fit-content {
+        width: fit-content !important;
+    }
+
+    .h-fit-content {
+        height: fit-content !important;
+    }
+
+    .max-w-100 {
+        max-width: 100% !important;
+    }
+
+    .min-w-100 {
+        min-width: 100% !important;
+    }
+
+    .max-h-100 {
+        max-height: 100% !important;
+    }
+
+    .min-h-100 {
+        min-height: 100% !important;
+    }
+
+    .max-vh-100 {
+        max-height: 100vh !important;
+    }
+
+    .min-vh-100 {
+        min-height: 100vh !important;
+    }
+
+    .max-vw-100 {
+        max-width: 100vw !important;
+    }
+
+    .min-vw-100 {
+        min-width: 100vw !important;
+    }
+
+    .vw-100 {
+        width: 100vw !important;
+    }
+
+    .vh-100 {
+        height: 100vh !important;
+    }
+}

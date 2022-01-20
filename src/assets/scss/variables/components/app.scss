@@ -1,0 +1,15 @@
+$border-radius: 4px;
+$border-width: 1px;
+
+$rounded-pill: 50rem;
+
+$hr-border-color: map_get($grey, base);
+$hr-border-width: $border-width;
+
+$mark-padding: .2em;
+
+$displays: none, inline, inline-block, block, table, table-row, table-cell, flex, inline-flex !default;
+$overflows: auto, hidden !default;
+$positions: static, relative, absolute, fixed, sticky !default;
+
+$app-wrapper-class: null;

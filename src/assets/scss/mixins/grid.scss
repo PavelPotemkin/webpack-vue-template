@@ -1,0 +1,89 @@
+@use 'sass:math';
+
+@mixin make-container($padding-x: $container-padding-x) {
+    width: 100%;
+    padding: $padding-x;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@mixin make-container-max-widths($max-widths: $container-max-widths, $breakpoints: $grid-breakpoints) {
+    @each $breakpoint, $container-max-width in $max-widths {
+        @include media-breakpoint-up($breakpoint, $breakpoints) {
+            max-width: $container-max-width;
+        }
+    }
+}
+
+@mixin make-row($gutter: $grid-gutter) {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1 1 auto;
+    margin: calc(-1 * #{$gutter} / 2);
+}
+
+@mixin make-col-ready($gutter: $grid-gutter) {
+    width: 100%;
+    margin: calc(#{$gutter} / 2);
+}
+
+@mixin make-col($size, $columns: $grid-columns) {
+    flex: 0 0 percentage(math.div($size, $columns));
+
+    max-width: percentage(math.div($size, $columns));
+}
+
+@mixin make-col-offset($size, $columns: $grid-columns) {
+    $num: math.div($size, $columns);
+    margin-left: if($num == 0, 0, percentage($num));
+}
+
+@mixin make-grid-columns($columns: $grid-columns, $gutter: $grid-gutter, $breakpoints: $grid-breakpoints) {
+    %grid-column {
+        width: 100%;
+        padding: calc(#{$gutter} / 2);
+    }
+
+    @each $breakpoint in map-keys($breakpoints) {
+        $infix: breakpoint-infix($breakpoint, $breakpoints);
+        
+        @for $i from 1 through $columns {
+            .col#{$infix}-#{$i} {
+                @extend %grid-column;
+            }
+        }
+
+        .col#{$infix},
+        .col#{$infix}-auto {
+            @extend %grid-column;
+        }
+
+        @include media-breakpoint-up($breakpoint, $breakpoints) {
+            .col#{$infix} {
+                flex-basis: 0;
+                flex-grow: 1;
+                max-width: 100%;
+            }
+
+            .col#{$infix}-auto {
+                flex: 0 0 auto;
+                width: auto;
+                max-width: 100%;
+            }
+
+            @for $i from 1 through $columns {
+                .col#{$infix}-#{$i} {
+                    @include make-col($i, $columns);
+                }
+            }
+
+            @for $i from 0 through $columns - 1 {
+                @if not ($infix == "" and $i == 0) {
+                    .offset#{$infix}-#{$i} {
+                        @include make-col-offset($i, $columns);
+                    }
+                }
+            }
+        }
+    }
+}

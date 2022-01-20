@@ -1,0 +1,57 @@
+@mixin generate-utility($utility, $infix) {
+    $values: map-get($utility, values);
+
+    @if type-of($values) == "string" or type-of(nth($values, 1)) != "list" {
+        $values: zip($values, $values);
+    }
+
+    @each $value in $values {
+        $properties: map-get($utility, property);
+
+        @if type-of($properties) == "string" {
+            $properties: append((), $properties);
+        }
+
+        @include generate-utility-body($utility, $properties, $value, $infix);
+    }
+}
+
+@mixin generate-utility-body($utility, $properties, $value, $infix) {
+    $property-class: map-get($utility, class);
+    $property-class-modifier: "";
+
+    @if ($property-class == "") {
+        $property-class: "";
+        $property-class-modifier: if(nth($value, 1), nth($value, 1), "");
+
+        @if ( type-of(nth($value, 1)) == "list" ) {
+            $property-class: if(nth(nth($value, 1), 1), nth(nth($value, 1), 1), "");
+
+            @if ($infix == nth(nth($value, 1), 2)) {
+                $property-class-modifier: "";
+            }
+        }
+    } @else {
+        $property-class: if($property-class, $property-class, nth($properties, 1));
+        $property-class-modifier: if(nth($value, 1), "-" + nth($value, 1), "");
+    }
+
+    $value: nth($value, 2);
+
+    .#{$property-class + $infix + $property-class-modifier} {
+        @for $i from 1 through length($properties) {
+            $property: nth($properties, $i);
+            $val: $value;
+
+            @if type-of($value) == "list" and length($properties) == length($value) {
+                $val: nth($value, $i);
+            }
+
+            @if $val != false {
+                $unimportant: map-get($utility, unimportant);
+
+                #{$property}: $val if(index($unimportant, $property), null, !important);
+            }
+        }
+    }
+}

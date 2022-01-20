@@ -1,0 +1,27 @@
+/* Position */
+
+@if ($enable-position) {
+    @each $position in $positions {
+        .position-#{$position} {
+            position: $position !important;
+        }
+    }
+
+    @each $breakpoint in map-keys($grid-breakpoints) {
+        @include media-breakpoint-up($breakpoint) {
+            $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+            .overflow#{$infix}-auto {
+                overflow: auto !important;
+            }
+
+            .overflow#{$infix}-hidden {
+                overflow: hidden !important;
+            }
+
+            .overflow#{$infix}-visible {
+                overflow: visible !important;
+            }
+        }
+    }
+}

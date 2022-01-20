@@ -1,0 +1,36 @@
+/* Grid */
+
+@if ($enable-grid) {
+    .container {
+        @include make-container();
+        @include make-container-max-widths();
+    }
+
+    .container-fluid {
+        @include make-container();
+    }
+
+    .row {
+        @include make-row();
+    }
+
+    .row--dense {
+        margin:calc( -1 * #{$grid-gutter-width} / 2);
+
+        > .col,
+        > [class*="col-"] {
+            padding: calc(#{$grid-gutter-width} / 2);
+        }
+    }
+
+    .row--no-gutters {
+        margin: 0;
+
+        > .col,
+        > [class*="col-"] {
+            padding: 0;
+        }
+    }
+
+    @include make-grid-columns();
+}

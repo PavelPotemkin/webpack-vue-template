@@ -1,0 +1,87 @@
+/* Text */
+
+@if ($enable-text) {
+    .text-monospace {
+        font-family: $heading-font-family !important;
+    }
+
+    // Alignment
+    .text-justify {
+        text-align: justify !important;
+    }
+
+    .text-wrap {
+        white-space: normal !important;
+    }
+
+    .text-nowrap {
+        white-space: nowrap !important;
+    }
+
+    // Responsive alignment
+
+    @each $breakpoint in map-keys($grid-breakpoints) {
+        @include media-breakpoint-up($breakpoint) {
+            $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+            .text#{$infix}-wrap {
+                white-space: normal !important;
+            }
+
+            .text#{$infix}-left {
+                text-align: left !important;
+            }
+
+            .text#{$infix}-right {
+                text-align: right !important;
+            }
+
+            .text#{$infix}-center {
+                text-align: center !important;
+            }
+        }
+    }
+
+    // Transformation
+    .text-lowercase {
+        text-transform: lowercase !important;
+    }
+
+    .text-uppercase {
+        text-transform: uppercase !important;
+    }
+
+    .text-capitalize {
+        text-transform: capitalize !important;
+    }
+
+    // Weight and italics
+    @each $size, $value in $font-weights {
+        .font-weight-#{$size} {
+            font-weight: $value !important;
+        }
+    }
+
+    .font-italic {
+        font-style: italic !important;
+    }
+
+    // Misc
+    .text-decoration-none {
+        text-decoration: none !important;
+    }
+
+    .text-decoration-underline {
+        text-decoration: underline !important;
+    }
+
+    .text-break {
+        word-break: break-word !important; // IE & < Edge 18
+        overflow-wrap: break-word !important;
+    }
+
+    // Reset
+    .text-reset {
+        color: inherit !important;
+    }
+}
